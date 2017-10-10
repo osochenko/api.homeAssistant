@@ -51,7 +51,7 @@ class ExpenseController extends Controller
 
             $expense->saveOrFail();
 
-            return response()->json([], 201);
+            return response()->json([], 204);
         } catch (Exception $error) {
             return response()->json(['message' => $error->getMessage()], 500);
         }

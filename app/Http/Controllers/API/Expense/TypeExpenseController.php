@@ -52,7 +52,7 @@ class TypeExpenseController extends Controller
 
             $typeExpense->saveOrFail();
 
-            return response()->json(['typeExpense' => fractal($typeExpense, new TypeExpenseTransformer())], 201);
+            return response()->json([], 204);
         } catch (Exception $error) {
             return response()->json(['message' => $error->getMessage()], 500);
         }
