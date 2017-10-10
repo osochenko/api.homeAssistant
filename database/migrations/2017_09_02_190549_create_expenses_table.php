@@ -20,7 +20,7 @@ class CreateExpensesTable extends Migration
             $table->integer('currency_id')->unsigned();
             $table->integer('price');
             $table->text('description')->nullable();
-            $table->timestamps();
+            $table->date('date');
 
             $table
                 ->foreign('user_id')

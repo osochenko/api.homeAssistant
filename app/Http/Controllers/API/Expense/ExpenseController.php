@@ -38,40 +38,18 @@ class ExpenseController extends Controller
     public function store(Request $request): JsonResponse
     {
         try {
-            foreach ($request->all() as $receivedExpense) {
-                $expenseStatus = $receivedExpense['status'];
+            $receivedExpense = $request->all();
 
-                switch (true) {
-                    case in_array('deleted', $expenseStatus, true):
-                        Expense::destroy($receivedExpense['id']);
-                        continue 2;
-                        break;
+            $expense = new Expense();
 
-                    case in_array('new', $expenseStatus, true):
-                        $expense = new Expense();
-                        $expense->user_id = auth()->user()->id;
-                        $expense->created_at = Carbon::parse($receivedExpense['date']);
-                        $expense->updated_at = Carbon::parse($receivedExpense['date']);
-                        break;
+            $expense->user_id = auth()->user()->id;
+            $expense->type_id = $receivedExpense['type']['id'];
+            $expense->currency_id = $receivedExpense['currency']['id'];
+            $expense->price = $receivedExpense['price'];
+            $expense->created_at = Carbon::parse($receivedExpense['date']);
+            $expense->updated_at = Carbon::parse($receivedExpense['date']);
 
-                    case in_array('updated', $expenseStatus, true):
-                        $expense = Expense::find($receivedExpense['id']);
-                        $expense->updated_at = Carbon::parse($receivedExpense['date']);
-                        break;
-                }
-
-                if ($expense !== null) {
-                    $expense->type_id = $receivedExpense['type']['id'];
-                    $expense->currency_id = $receivedExpense['currency']['id'];
-                    $expense->price = $receivedExpense['price'];
-
-//                    if ($request->has('description')) {
-//                        $expense->description = $request->input('description');
-//                    }
-
-                    $expense->saveOrFail();
-                }
-            }
+            $expense->saveOrFail();
 
             return response()->json([], 201);
         } catch (Exception $error) {
@@ -90,17 +68,18 @@ class ExpenseController extends Controller
     public function update(Expense $expense, Request $request): JsonResponse
     {
         try {
-            $expense->type_id = $request->input('type');
-            $expense->currency_id = $request->input('currency');
-            $expense->price = $request->input('price');
+            $receivedExpense = $request->all();
 
-            if ($request->has('description')) {
-                $expense->description = $request->input('description');
-            }
+            $expense->type_id = $receivedExpense['type']['id'];
+            $expense->currency_id = $receivedExpense['currency']['id'];
+            $expense->price = $receivedExpense['price'];
+            $expense->created_at = Carbon::parse($receivedExpense['date']);
+            $expense->updated_at = Carbon::parse($receivedExpense['date']);
 
             $expense->saveOrFail();
 
-            return response()->json([], 204);
+//            return response()->json([], 204);
+            return response()->json(['date' => Carbon::parse($receivedExpense['date'])->toDateTimeString()]);
         } catch (Exception $error) {
             return response()->json(['message' => $error->getMessage()], 500);
         }
