@@ -52,7 +52,7 @@ class TypeExpenseController extends Controller
 
             $typeExpense->saveOrFail();
 
-            return response()->json([], 204);
+            return response()->json(['id' => $typeExpense->id], 201);
         } catch (Exception $error) {
             return response()->json(['message' => $error->getMessage()], 500);
         }
