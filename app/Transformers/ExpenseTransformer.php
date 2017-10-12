@@ -32,7 +32,7 @@ class ExpenseTransformer extends TransformerAbstract
             'id' => $expense->id,
             'price' => $expense->price,
             'description' => $expense->description,
-            'date' => $expense->updated_at->toDateString(),
+            'date' => $expense->date->toDateString(),
         ];
     }
 

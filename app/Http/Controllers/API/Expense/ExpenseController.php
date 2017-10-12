@@ -46,8 +46,7 @@ class ExpenseController extends Controller
             $expense->type_id = $receivedExpense['type']['id'];
             $expense->currency_id = $receivedExpense['currency']['id'];
             $expense->price = $receivedExpense['price'];
-            $expense->created_at = Carbon::parse($receivedExpense['date']);
-            $expense->updated_at = Carbon::parse($receivedExpense['date']);
+            $expense->date = Carbon::parse($receivedExpense['date']);
 
             $expense->saveOrFail();
 
@@ -73,8 +72,7 @@ class ExpenseController extends Controller
             $expense->type_id = $receivedExpense['type']['id'];
             $expense->currency_id = $receivedExpense['currency']['id'];
             $expense->price = $receivedExpense['price'];
-            $expense->created_at = Carbon::parse($receivedExpense['date']);
-            $expense->updated_at = Carbon::parse($receivedExpense['date']);
+            $expense->date = Carbon::parse($receivedExpense['date']);
 
             $expense->saveOrFail();
 

@@ -10,9 +10,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Expense extends Model
 {
     protected $dates = [
-        'created_at',
-        'updated_at'
+        'date',
     ];
+
+    public $timestamps = false;
 
     public function type(): BelongsTo
     {
