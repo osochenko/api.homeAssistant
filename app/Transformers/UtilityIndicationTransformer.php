@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Transformers;
 
-use App\Models\Expense;
+use App\Models\UtilityIndication;
 use League\Fractal\Resource\Item;
 use League\Fractal\TransformerAbstract;
 
@@ -16,44 +16,32 @@ class UtilityIndicationTransformer extends TransformerAbstract
      * @var array
      */
     protected $defaultIncludes = [
-        'currency',
         'type',
     ];
 
     /**
      * A Fractal transformer.
      *
-     * @param Expense $expense
+     * @param UtilityIndication $utility
      * @return array
      */
-    public function transform(Expense $expense): array
+    public function transform(UtilityIndication $utility): array
     {
         return [
-            'id' => $expense->id,
-            'price' => $expense->price,
-            'description' => $expense->description,
+            'id' => $utility->id,
+            'amount' => $utility->amount,
+            'date' => $utility->date->toDateString(),
         ];
     }
 
     /**
-     * Include expense currency.
+     * Include type of utility.
      *
-     * @param Expense $expense
+     * @param UtilityIndication $utility
      * @return Item
      */
-    public function includeCurrency(Expense $expense): Item
+    public function includeType(UtilityIndication $utility): Item
     {
-        return $this->item($expense->currency, new CurrencyTransformer());
-    }
-
-    /**
-     * Include type of expense.
-     *
-     * @param Expense $expense
-     * @return Item
-     */
-    public function includeType(Expense $expense): Item
-    {
-        return $this->item($expense->type, new TypeExpenseTransformer());
+        return $this->item($utility->type, new TypeUtilityTransformer());
     }
 }

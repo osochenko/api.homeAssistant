@@ -12,6 +12,9 @@ use Illuminate\Http\{Request, JsonResponse};
 
 class TypeExpenseController extends Controller
 {
+    /**
+     * TypeExpenseController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth:api');

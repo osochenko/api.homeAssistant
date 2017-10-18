@@ -13,6 +13,14 @@ use App\Transformers\TypeUtilityTransformer;
 class TypeUtilityController extends Controller
 {
     /**
+     * TypeUtilityController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
+    /**
      * Display a listing of the Type Utility Indication.
      *
      * @return JsonResponse
@@ -36,15 +44,13 @@ class TypeUtilityController extends Controller
 
             $typeUtility->user_id = auth()->user()->id;
             $typeUtility->name = $request->input('name');
+            $typeUtility->currency_id = $request->input('currency.id');
             $typeUtility->rate = $request->input('rate');
-
-            if ($request->has('description')) {
-                $typeUtility->description = $request->input('description');
-            }
+            $typeUtility->unit = $request->input('unit');
 
             $typeUtility->saveOrFail();
 
-            return response()->json(['typeUtility' => fractal($typeUtility, new TypeUtilityTransformer())], 201);
+            return response()->json(['id' => $typeUtility->id], 201);
         } catch (Exception $error) {
             return response()->json(['message' => $error->getMessage()], 500);
         }
@@ -62,11 +68,9 @@ class TypeUtilityController extends Controller
     {
         try {
             $typeUtility->name = $request->input('name');
+            $typeUtility->currency_id = $request->input('currency.id');
             $typeUtility->rate = $request->input('rate');
-
-            if ($request->has('description')) {
-                $typeUtility->description = $request->input('description');
-            }
+            $typeUtility->unit = $request->input('unit');
 
             $typeUtility->saveOrFail();
 

@@ -106,7 +106,7 @@ class User extends Authenticatable
      *
      * @return HasMany
      */
-    public function typeUtility(): HasMany
+    public function typeUtilities(): HasMany
     {
         return $this->hasMany(TypeUtility::class);
     }

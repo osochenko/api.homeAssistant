@@ -13,6 +13,14 @@ use App\Transformers\UtilityIndicationTransformer;
 class UtilityIndicationController extends Controller
 {
     /**
+     * UtilityIndicationController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
+    /**
      * Display a listing of the Utility Indication.
      *
      * @return JsonResponse
@@ -35,16 +43,13 @@ class UtilityIndicationController extends Controller
             $utilityIndication = new UtilityIndication();
 
             $utilityIndication->user_id = auth()->user()->id;
-            $utilityIndication->type_id = $request->input('type');
+            $utilityIndication->type_id = $request->input('type.id');
             $utilityIndication->amount = $request->input('amount');
-
-            if ($request->has('description')) {
-                $utilityIndication->description = $request->input('description');
-            }
+            $utilityIndication->date = Carbon::parse($request->input('date'));
 
             $utilityIndication->saveOrFail();
 
-            return response()->json(['utilityIndication' => fractal($utilityIndication, new UtilityIndicationTransformer())], 201);
+            return response()->json(['id' => $utilityIndication->id], 201);
         } catch (Exception $error) {
             return response()->json(['message' => $error->getMessage()], 500);
         }
@@ -63,10 +68,7 @@ class UtilityIndicationController extends Controller
         try {
             $utilityIndication->type_id = $request->input('type');
             $utilityIndication->amount = $request->input('amount');
-
-            if ($request->has('description')) {
-                $utilityIndication->description = $request->input('description');
-            }
+            $utilityIndication->date = Carbon::parse($request->input('date'));
 
             $utilityIndication->saveOrFail();
 
