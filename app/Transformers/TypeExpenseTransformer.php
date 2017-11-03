@@ -16,7 +16,7 @@ class TypeExpenseTransformer extends TransformerAbstract
      * @var array
      */
     protected $availableIncludes = [
-        'typeExpenses',
+        'expenses',
     ];
 
     /**
@@ -29,15 +29,13 @@ class TypeExpenseTransformer extends TransformerAbstract
     {
         return [
             'id' => $typeExpense->id,
-            'mandatory' => $typeExpense->mandatory,
+            'slug' => $typeExpense->slug,
             'name' => $typeExpense->name,
-            'description' => $typeExpense->description,
-            'color' => $typeExpense->color,
         ];
     }
 
     /**
-     * Include typeExpenses.
+     * Include expenses by type.
      *
      * @param TypeExpense $typeExpense
      * @return Collection

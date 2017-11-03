@@ -30,7 +30,7 @@ class TypeUtilityTransformer extends TransformerAbstract
         return [
             'id' => $typeUtility->id,
             'name' => $typeUtility->name,
-            'rate' => $typeUtility->rate,
+            'rate' => round($typeUtility->rate, 2 ),
             'unit' => $typeUtility->unit,
         ];
     }
