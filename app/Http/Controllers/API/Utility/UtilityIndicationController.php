@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\API\Utility;
 
 use Exception;
+use Carbon\Carbon;
 use App\Models\UtilityIndication;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\{Request, JsonResponse};
@@ -66,7 +67,7 @@ class UtilityIndicationController extends Controller
     public function update(UtilityIndication $utilityIndication, Request $request): JsonResponse
     {
         try {
-            $utilityIndication->type_id = $request->input('type');
+            $utilityIndication->type_id = $request->input('type.id');
             $utilityIndication->amount = $request->input('amount');
             $utilityIndication->date = Carbon::parse($request->input('date'));
 
