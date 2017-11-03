@@ -18,7 +18,6 @@ class CreateUtilityIndicationsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('type_id')->unsigned();
             $table->integer('amount');
-            $table->text('description')->nullable();
             $table->date('date');
 
             $table
