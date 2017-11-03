@@ -23,9 +23,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::resource('expense', 'API\Expense\ExpenseController', [
     'only' => ['index', 'store', 'update', 'destroy']
 ]);
-Route::resource('type-expense', 'API\Expense\TypeExpenseController', [
+Route::resource('category-expense', 'API\Expense\CategoryExpenseController', [
     'only' => ['index', 'store', 'update', 'destroy']
 ]);
+
+Route::get('type-expense', 'API\Expense\TypeExpenseController@index');
 
 Route::resource('allocated-money', 'API\AllocatedMoney\AllocatedMoneyController', [
     'only' => ['index', 'store', 'update', 'destroy']
