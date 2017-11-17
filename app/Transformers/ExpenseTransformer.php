@@ -18,6 +18,7 @@ class ExpenseTransformer extends TransformerAbstract
     protected $defaultIncludes = [
         'currency',
         'type',
+        'category',
     ];
 
     /**
@@ -56,5 +57,16 @@ class ExpenseTransformer extends TransformerAbstract
     public function includeType(Expense $expense): Item
     {
         return $this->item($expense->type, new TypeExpenseTransformer());
+    }
+
+    /**
+     * Include category of expense.
+     *
+     * @param Expense $expense
+     * @return Item
+     */
+    public function includeCategory(Expense $expense): Item
+    {
+        return $this->item($expense->category, new CategoryExpenseTransformer());
     }
 }

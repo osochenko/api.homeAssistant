@@ -44,8 +44,10 @@ class ExpenseController extends Controller
 
             $expense->user_id = auth()->user()->id;
             $expense->type_id = $receivedExpense['type']['id'];
+            $expense->category_id = $receivedExpense['category']['id'];
             $expense->currency_id = $receivedExpense['currency']['id'];
             $expense->price = $receivedExpense['price'];
+            $expense->description = $receivedExpense['description'] ?? null;
             $expense->date = Carbon::parse($receivedExpense['date']);
 
             $expense->saveOrFail();
@@ -72,6 +74,7 @@ class ExpenseController extends Controller
             $expense->type_id = $receivedExpense['type']['id'];
             $expense->currency_id = $receivedExpense['currency']['id'];
             $expense->price = $receivedExpense['price'];
+            $expense->description = $receivedExpense['description'] ?? null;
             $expense->date = Carbon::parse($receivedExpense['date']);
 
             $expense->saveOrFail();

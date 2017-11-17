@@ -42,13 +42,13 @@ class User extends Authenticatable
     }
 
     /**
-     * Get all user types expenses items.
+     * Get all user category expenses items.
      *
      * @return HasMany
      */
-    public function typeExpenses(): HasMany
+    public function categoryExpenses(): HasMany
     {
-        return $this->hasMany(TypeExpense::class);
+        return $this->hasMany(CategoryExpense::class);
     }
 
     /**

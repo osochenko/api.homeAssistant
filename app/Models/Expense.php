@@ -15,6 +15,11 @@ class Expense extends Model
 
     public $timestamps = false;
 
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(CategoryExpense::class);
+    }
+
     public function type(): BelongsTo
     {
         return $this->belongsTo(TypeExpense::class);
