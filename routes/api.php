@@ -61,3 +61,6 @@ Route::resource('dept', 'API\DebtController', [
 Route::any('test', function () {
     return 'true';
 });
+Route::any('test2', function () {
+    return 'work done';
+});
