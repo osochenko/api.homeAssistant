@@ -23,6 +23,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::resource('expense', 'API\Expense\ExpenseController', [
     'only' => ['index', 'store', 'update', 'destroy']
 ]);
+Route::get('expense/{monthNumber}', 'API\Expense\ExpenseController@getByMonthNumber');
+
 Route::resource('category-expense', 'API\Expense\CategoryExpenseController', [
     'only' => ['index', 'store', 'update', 'destroy']
 ]);

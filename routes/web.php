@@ -16,7 +16,7 @@ use App\Models\User;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/test', function () {
+Route::get('create-use', function () {
     $input = [
         'name' => 'Vadim Osochenko',
         'email' => 'rokerez@yandex.ua',
@@ -28,6 +28,6 @@ Route::get('/test', function () {
 
     return response()->json(['token' => $token]);
 });
-Route::get('/categories', function () {
-    dd(User::first()->categoryExpenses);
+Route::get('test', function () {
+    dd(\App\Models\Expense::whereMonth('date','=', 10)->get());
 });

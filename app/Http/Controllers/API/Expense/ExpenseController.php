@@ -29,6 +29,20 @@ class ExpenseController extends Controller
     }
 
     /**
+     * @param $month
+     *
+     * @return JsonResponse
+     */
+    public function getByMonthNumber($monthNumber): JsonResponse
+    {
+        $expenses = Expense::where('user_id', auth()->user()->id)
+            ->whereMonth('date','=', $monthNumber)
+            ->get();
+
+        return response()->json(fractal($expenses, new ExpenseTransformer()));
+    }
+
+    /**
      * Store a new expense.
      *
      * @param  Request $request
