@@ -18,7 +18,6 @@ class CreateTypeUtilitiesTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('currency_id')->unsigned();
             $table->string('name');
-            $table->float('rate');
             $table->string('unit');
 
             $table

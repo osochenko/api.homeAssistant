@@ -17,6 +17,11 @@ class TypeUtility extends Model
         return $this->hasMany(UtilityIndication::class);
     }
 
+    public function rateRules(): HasMany
+    {
+        return $this->hasMany(UtilityRateRule::class);
+    }
+
     public function currency(): BelongsTo
     {
         return $this->belongsTo(Currency::class);
