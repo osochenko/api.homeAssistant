@@ -17,7 +17,7 @@ class CreateUtilityRateRulesTable extends Migration
             $table->increments('id');
             $table->integer('type_utility_id')->unsigned();
             $table->float('rate');
-            $table->integer('limit');
+            $table->integer('limit')->nullable();
             $table->timestamps();
 
             $table
