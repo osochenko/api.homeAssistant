@@ -20,8 +20,8 @@ class UtilityRateRuleTransformer extends TransformerAbstract
     {
         return [
             'id' => $utilityRateRule->id,
-            'rate' => $utilityRateRule->rate,
-            'rule' => $utilityRateRule->rule,
+            'rate' => round($utilityRateRule->rate, 2 ),
+            'limit' => $utilityRateRule->limit,
         ];
     }
 }
