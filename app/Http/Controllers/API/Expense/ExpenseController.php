@@ -29,7 +29,7 @@ class ExpenseController extends Controller
     }
 
     /**
-     * @param $month
+     * @param int $monthNumber
      *
      * @return JsonResponse
      */
@@ -87,6 +87,7 @@ class ExpenseController extends Controller
 
             $expense->type_id = $receivedExpense['type']['id'];
             $expense->currency_id = $receivedExpense['currency']['id'];
+            $expense->category_id = $receivedExpense['category']['id'];
             $expense->price = $receivedExpense['price'];
             $expense->description = $receivedExpense['description'] ?? null;
             $expense->date = Carbon::parse($receivedExpense['date']);
