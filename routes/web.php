@@ -29,5 +29,8 @@ Route::get('create-use', function () {
     return response()->json(['token' => $token]);
 });
 Route::get('test', function () {
-    dd(\App\Models\Expense::whereMonth('date','=', 10)->get());
+    dd(\App\Models\UtilityIndication::where('type_id', 1)
+        ->whereYear('date', '2018')
+        ->whereMonth('date', '2')
+        ->first());
 });

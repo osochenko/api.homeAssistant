@@ -41,12 +41,22 @@ class UtilityIndicationController extends Controller
     public function store(Request $request): JsonResponse
     {
         try {
-            $utilityIndication = new UtilityIndication();
+            $receivedDate = Carbon::parse($request->input('date'));
+            $receivedTypeId = $request->input('type.id');
 
-            $utilityIndication->user_id = auth()->user()->id;
-            $utilityIndication->type_id = $request->input('type.id');
+            $utilityIndication = UtilityIndication::where('type_id', $receivedTypeId)
+                ->whereYear('date', $receivedDate->year)
+                ->whereMonth('date', $receivedDate->month)
+                ->first();
+
+            if (!$utilityIndication) {
+                $utilityIndication = new UtilityIndication();
+                $utilityIndication->user_id = auth()->user()->id;
+                $utilityIndication->type_id = $receivedTypeId;
+            }
+
             $utilityIndication->amount = $request->input('amount');
-            $utilityIndication->date = Carbon::parse($request->input('date'));
+            $utilityIndication->date = $receivedDate;
 
             $utilityIndication->saveOrFail();
 
