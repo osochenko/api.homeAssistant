@@ -6,7 +6,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TypeUtility extends Model
 {
@@ -21,9 +20,5 @@ class TypeUtility extends Model
     {
         return $this->hasMany(UtilityRateRule::class);
     }
-
-    public function currency(): BelongsTo
-    {
-        return $this->belongsTo(Currency::class);
-    }
 }
+
