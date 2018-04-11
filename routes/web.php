@@ -11,6 +11,7 @@
 |
 */
 
+//use DB;
 use App\Models\User;
 
 Route::get('/', function () {
@@ -29,8 +30,21 @@ Route::get('create-use', function () {
     return response()->json(['token' => $token]);
 });
 Route::get('test', function () {
-    dd(\App\Models\UtilityIndication::where('type_id', 1)
-        ->whereYear('date', '2018')
-        ->whereMonth('date', '2')
-        ->first());
+//    $user = User::find(1);
+//    dd($user->utilityIndications);
+
+    $rateRules = \App\Models\UtilityRateRule::whereHas('typeUtility', function ($query) {
+        $query->where('user_id', '=', 1);
+    })->get();
+    dd($rateRules);
+
+//    dd(DB::table('utility_rate_rules')
+//        ->join('type_utilities', 'utility_rate_rules.type_utility_id', '=', 'type_utilities.id')
+//        ->where('type_utilities.user_id', '=', 1)
+//        ->get());
+//
+//    dd(\App\Models\UtilityIndication::where('type_id', 1)
+//        ->whereYear('date', '2018')
+//        ->whereMonth('date', '2')
+//        ->first());
 });

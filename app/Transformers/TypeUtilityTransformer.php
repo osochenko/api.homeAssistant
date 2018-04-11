@@ -5,22 +5,10 @@ declare(strict_types=1);
 namespace App\Transformers;
 
 use App\Models\TypeUtility;
-use League\Fractal\Resource\Item;
-use League\Fractal\Resource\Collection;
 use League\Fractal\TransformerAbstract;
 
 class TypeUtilityTransformer extends TransformerAbstract
 {
-    /**
-     * Include resources without needing it to be requested.
-     *
-     * @var array
-     */
-    protected $defaultIncludes = [
-        'currency',
-        'rateRules'
-    ];
-
     /**
      * A Fractal transformer.
      *
@@ -33,28 +21,8 @@ class TypeUtilityTransformer extends TransformerAbstract
             'id' => $typeUtility->id,
             'name' => $typeUtility->name,
             'unit' => $typeUtility->unit,
+            'rateRules' => $typeUtility->rateRules->pluck('id'),
+            'currency' => $typeUtility->currency->id,
         ];
-    }
-
-    /**
-     * Include typeUtility currency.
-     *
-     * @param TypeUtility $typeUtility
-     * @return Item
-     */
-    public function includeCurrency(TypeUtility $typeUtility): Item
-    {
-        return $this->item($typeUtility->currency, new CurrencyTransformer());
-    }
-
-    /**
-     * Include typeUtility rate rules.
-     *
-     * @param TypeUtility $typeUtility
-     * @return Collection
-     */
-    public function includeRateRules(TypeUtility $typeUtility): Collection
-    {
-        return $this->collection($typeUtility->rateRules, new UtilityRateRuleTransformer());
     }
 }

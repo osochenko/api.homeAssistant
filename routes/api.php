@@ -44,6 +44,9 @@ Route::resource('type-utility', 'API\Utility\TypeUtilityController', [
 Route::resource('utility-indication', 'API\Utility\UtilityIndicationController', [
     'only' => ['index', 'store', 'update', 'destroy']
 ]);
+Route::resource('utility-rate-rule', 'API\Utility\UtilityRateRuleController', [
+    'only' => ['index']
+]);
 
 Route::resource('wage', 'API\Wage\WageController', [
     'only' => ['index', 'store', 'update', 'destroy']
