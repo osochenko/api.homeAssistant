@@ -42,7 +42,7 @@ class UtilityIndicationController extends Controller
     {
         try {
             $receivedDate = Carbon::parse($request->input('date'));
-            $receivedTypeId = $request->input('type.id');
+            $receivedTypeId = $request->input('type');
 
             // TODO: Добавить возможность добавление по дням для вывода истории ввода показаний
             $utilityIndication = UtilityIndication::where('type_id', $receivedTypeId)
@@ -79,7 +79,7 @@ class UtilityIndicationController extends Controller
     public function update(UtilityIndication $utilityIndication, Request $request): JsonResponse
     {
         try {
-            $utilityIndication->type_id = $request->input('type.id');
+            $utilityIndication->type_id = $request->input('type');
             $utilityIndication->amount = $request->input('amount');
             $utilityIndication->date = Carbon::parse($request->input('date'));
 
