@@ -17,7 +17,7 @@ use App\Models\User;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('create-use', function () {
+Route::get('create-user', function () {
     $input = [
         'name' => 'Vadim Osochenko',
         'email' => 'rokerez@yandex.ua',

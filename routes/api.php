@@ -62,10 +62,3 @@ Route::resource('currency', 'API\CurrencyController', [
 Route::resource('dept', 'API\DebtController', [
     'only' => ['index', 'store', 'update', 'destroy']
 ]);
-
-Route::any('test', function () {
-    return 'true';
-});
-Route::any('test2', function () {
-    return 'work done';
-});

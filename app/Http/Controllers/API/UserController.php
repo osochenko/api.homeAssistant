@@ -43,6 +43,6 @@ class UserController extends Controller
         $user = User::create($input);
         $token = $user->createToken('WebApp')->accessToken;
 
-        return response()->json(['token' => $token]);
+        return response()->json(['access_token' => $token]);
     }
 }
