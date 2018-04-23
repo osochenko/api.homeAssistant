@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\API\Expense;
 
+use App\Models\TypeExpense;
 use Carbon\Carbon;
 use Exception;
 use App\Models\Expense;
@@ -35,9 +36,20 @@ class ExpenseController extends Controller
      */
     public function getByMonthNumber($monthNumber): JsonResponse
     {
-        $expenses = Expense::where('user_id', auth()->user()->id)
-            ->whereMonth('date','=', $monthNumber)
+        $expenseTypeIDs = TypeExpense::where('slug', '!=', 'personal')
+            ->pluck('id')
+            ->toArray();
+
+        $generalExpenses = Expense::whereMonth('date','=', $monthNumber)
+            ->whereIn('type_id', $expenseTypeIDs)
             ->get();
+
+        $personalExpenses = Expense::whereMonth('date','=', $monthNumber)
+            ->whereNotIn('type_id', $expenseTypeIDs)
+            ->where('user_id', auth()->user()->id)
+            ->get();
+
+        $expenses = $generalExpenses->merge($personalExpenses);
 
         return response()->json(fractal($expenses, new ExpenseTransformer()));
     }

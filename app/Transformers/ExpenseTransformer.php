@@ -31,6 +31,7 @@ class ExpenseTransformer extends TransformerAbstract
     {
         return [
             'id' => $expense->id,
+            'userId' => $expense->user_id,
             'price' => $expense->price,
             'description' => $expense->description,
             'date' => $expense->date->toDateString(),
