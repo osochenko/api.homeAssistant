@@ -27,7 +27,7 @@ class CategoryExpenseController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json(fractal(auth()->user()->categoryExpenses, new CategoryExpenseTransformer()));
+        return response()->json(fractal(CategoryExpense::all(), new CategoryExpenseTransformer()));
     }
 
     /**
