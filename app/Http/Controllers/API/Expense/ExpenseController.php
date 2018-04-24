@@ -106,7 +106,6 @@ class ExpenseController extends Controller
 
             $expense->saveOrFail();
 
-//            return response()->json([], 204);
             return response()->json(['date' => Carbon::parse($receivedExpense['date'])->toDateTimeString()]);
         } catch (Exception $error) {
             return response()->json(['message' => $error->getMessage()], 500);
