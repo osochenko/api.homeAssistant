@@ -21,7 +21,7 @@ class UtilityIndicationTransformer extends TransformerAbstract
             'id' => $utility->id,
             'amount' => $utility->amount,
             'date' => $utility->date->toDateString(),
-            'type' => $utility->type->id,
+            'type' => $utility->type_id,
         ];
     }
 }

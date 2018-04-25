@@ -22,7 +22,7 @@ class TypeUtilityTransformer extends TransformerAbstract
             'name' => $typeUtility->name,
             'unit' => $typeUtility->unit,
             'rateRules' => $typeUtility->rateRules->pluck('id'),
-            'currency' => $typeUtility->currency->id,
+            'currency' => $typeUtility->currency_id,
         ];
     }
 }

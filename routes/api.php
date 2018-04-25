@@ -59,6 +59,6 @@ Route::resource('currency', 'API\CurrencyController', [
     'only' => ['index']
 ]);
 
-Route::resource('dept', 'API\DebtController', [
+Route::resource('debt', 'API\DebtController', [
     'only' => ['index', 'store', 'update', 'destroy']
 ]);

@@ -13,6 +13,14 @@ use Illuminate\Http\{Request, JsonResponse};
 class DebtController extends Controller
 {
     /**
+     * DebtController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
+    /**
      * Display a listing of the debt.
      *
      * @return JsonResponse
@@ -45,7 +53,7 @@ class DebtController extends Controller
 
             $debt->saveOrFail();
 
-            return response()->json(['debt' => fractal($debt, new DebtTransformer())], 201);
+            return response()->json(['id' => $debt->id], 201);
         } catch (Exception $error) {
             return response()->json(['message' => $error->getMessage()], 500);
         }
