@@ -17,8 +17,8 @@ class CreateExpensesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('category_id')->unsigned();
-            $table->integer('type_id')->unsigned();
             $table->integer('currency_id')->unsigned();
+            $table->boolean('is_general')->default(false);
             $table->integer('price');
             $table->text('description')->nullable();
             $table->date('date');
@@ -33,12 +33,6 @@ class CreateExpensesTable extends Migration
                 ->foreign('category_id')
                 ->references('id')
                 ->on('category_expenses')
-                ->onDelete('cascade');
-
-            $table
-                ->foreign('type_id')
-                ->references('id')
-                ->on('type_expenses')
                 ->onDelete('cascade');
 
             $table

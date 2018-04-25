@@ -11,15 +11,6 @@ use League\Fractal\TransformerAbstract;
 class CategoryExpenseTransformer extends TransformerAbstract
 {
     /**
-     * List of resources possible to include
-     *
-     * @var array
-     */
-    protected $availableIncludes = [
-        'expenses',
-    ];
-
-    /**
      * A Fractal transformer.
      *
      * @param CategoryExpense $categoryExpense
@@ -32,17 +23,7 @@ class CategoryExpenseTransformer extends TransformerAbstract
             'name' => $categoryExpense->name,
             'description' => $categoryExpense->description,
             'color' => $categoryExpense->color,
+            'is_edible' => $categoryExpense->is_edible
         ];
-    }
-
-    /**
-     * Include expenses by category.
-     *
-     * @param CategoryExpense $categoryExpense
-     * @return Collection
-     */
-    public function includeExpenses(CategoryExpense $categoryExpense): Collection
-    {
-        return $this->collection($categoryExpense->expenses, new ExpenseTransformer());
     }
 }

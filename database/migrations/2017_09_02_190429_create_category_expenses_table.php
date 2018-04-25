@@ -18,6 +18,7 @@ class CreateCategoryExpensesTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->string('name');
             $table->string('color');
+            $table->boolean('is_edible')->default(false);
 
             $table
                 ->foreign('user_id')

@@ -44,10 +44,8 @@ class CategoryExpenseController extends Controller
 
             $categoryExpense->user_id = auth()->user()->id;
             $categoryExpense->name = $request->input('name');
-
-            if ($request->has('color')) {
-                $categoryExpense->color = $request->input('color');
-            }
+            $categoryExpense->is_edible = $request->input('is_edible', 0);
+            $categoryExpense->color = $request->input('color');
 
             $categoryExpense->saveOrFail();
 
@@ -69,10 +67,8 @@ class CategoryExpenseController extends Controller
     {
         try {
             $categoryExpense->name = $request->input('name');
-
-            if ($request->has('color')) {
-                $categoryExpense->color = $request->input('color');
-            }
+            $categoryExpense->is_edible = $request->input('is_edible', 0);
+            $categoryExpense->color = $request->input('color');
 
             $categoryExpense->saveOrFail();
 

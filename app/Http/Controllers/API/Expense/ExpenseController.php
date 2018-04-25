@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\API\Expense;
 
-use App\Models\TypeExpense;
 use Carbon\Carbon;
 use Exception;
 use App\Models\Expense;
@@ -36,16 +35,12 @@ class ExpenseController extends Controller
      */
     public function getByMonthNumber($monthNumber): JsonResponse
     {
-        $expenseTypeIDs = TypeExpense::where('slug', '!=', 'personal')
-            ->pluck('id')
-            ->toArray();
-
         $generalExpenses = Expense::whereMonth('date','=', $monthNumber)
-            ->whereIn('type_id', $expenseTypeIDs)
+            ->where('is_general', '=', true)
             ->get();
 
         $personalExpenses = Expense::whereMonth('date','=', $monthNumber)
-            ->whereNotIn('type_id', $expenseTypeIDs)
+            ->where('is_general', '=', false)
             ->where('user_id', auth()->user()->id)
             ->get();
 
@@ -69,10 +64,10 @@ class ExpenseController extends Controller
             $expense = new Expense();
 
             $expense->user_id = auth()->user()->id;
-            $expense->type_id = $receivedExpense['type']['id'];
             $expense->category_id = $receivedExpense['category']['id'];
             $expense->currency_id = $receivedExpense['currency']['id'];
             $expense->price = $receivedExpense['price'];
+            $expense->is_general = $receivedExpense['is_general'];
             $expense->description = $receivedExpense['description'] ?? null;
             $expense->date = Carbon::parse($receivedExpense['date']);
 
@@ -97,9 +92,9 @@ class ExpenseController extends Controller
         try {
             $receivedExpense = $request->all();
 
-            $expense->type_id = $receivedExpense['type']['id'];
             $expense->currency_id = $receivedExpense['currency']['id'];
             $expense->category_id = $receivedExpense['category']['id'];
+            $expense->is_general = $receivedExpense['is_general'];
             $expense->price = $receivedExpense['price'];
             $expense->description = $receivedExpense['description'] ?? null;
             $expense->date = Carbon::parse($receivedExpense['date']);

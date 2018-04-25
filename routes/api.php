@@ -29,8 +29,6 @@ Route::resource('category-expense', 'API\Expense\CategoryExpenseController', [
     'only' => ['index', 'store', 'update', 'destroy']
 ]);
 
-Route::get('type-expense', 'API\Expense\TypeExpenseController@index');
-
 Route::resource('allocated-money', 'API\AllocatedMoney\AllocatedMoneyController', [
     'only' => ['index', 'store', 'update', 'destroy']
 ]);

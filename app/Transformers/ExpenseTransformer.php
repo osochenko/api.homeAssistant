@@ -11,17 +11,6 @@ use League\Fractal\TransformerAbstract;
 class ExpenseTransformer extends TransformerAbstract
 {
     /**
-     * Include resources without needing it to be requested.
-     *
-     * @var array
-     */
-    protected $defaultIncludes = [
-        'currency',
-        'type',
-        'category',
-    ];
-
-    /**
      * A Fractal transformer.
      *
      * @param Expense $expense
@@ -31,42 +20,12 @@ class ExpenseTransformer extends TransformerAbstract
     {
         return [
             'id' => $expense->id,
+            'category' => $expense->category_id,
+            'currency' => $expense->currency_id,
             'price' => $expense->price,
+            'is_general' => $expense->is_general,
             'description' => $expense->description,
             'date' => $expense->date->toDateString(),
         ];
-    }
-
-    /**
-     * Include expense currency.
-     *
-     * @param Expense $expense
-     * @return Item
-     */
-    public function includeCurrency(Expense $expense): Item
-    {
-        return $this->item($expense->currency, new CurrencyTransformer());
-    }
-
-    /**
-     * Include type of expense.
-     *
-     * @param Expense $expense
-     * @return Item
-     */
-    public function includeType(Expense $expense): Item
-    {
-        return $this->item($expense->type, new TypeExpenseTransformer());
-    }
-
-    /**
-     * Include category of expense.
-     *
-     * @param Expense $expense
-     * @return Item
-     */
-    public function includeCategory(Expense $expense): Item
-    {
-        return $this->item($expense->category, new CategoryExpenseTransformer());
     }
 }
