@@ -69,7 +69,7 @@ class ExpenseController extends Controller
 
             $expense->user_id = auth()->user()->id;
             $expense->category_id = $receivedExpense['category'];
-            $expense->currency_id = $receivedExpense['currency']['id'];
+            $expense->currency_id = $receivedExpense['currency'];
             $expense->price = $receivedExpense['price'];
             $expense->is_general = $receivedExpense['isGeneral'];
             $expense->description = $receivedExpense['description'] ?? null;
@@ -96,7 +96,7 @@ class ExpenseController extends Controller
         try {
             $receivedExpense = $request->all();
 
-            $expense->currency_id = $receivedExpense['currency']['id'];
+            $expense->currency_id = $receivedExpense['currency'];
             $expense->category_id = $receivedExpense['category'];
             $expense->is_general = $receivedExpense['isGeneral'];
             $expense->price = $receivedExpense['price'];
