@@ -23,7 +23,7 @@ class ExpenseTransformer extends TransformerAbstract
             'category' => $expense->category_id,
             'currency' => $expense->currency_id,
             'price' => $expense->price,
-            'is_general' => $expense->is_general,
+            'isGeneral' => $expense->is_general,
             'description' => $expense->description,
             'date' => $expense->date->toDateString(),
         ];

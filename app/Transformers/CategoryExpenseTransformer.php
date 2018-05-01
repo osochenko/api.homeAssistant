@@ -23,7 +23,7 @@ class CategoryExpenseTransformer extends TransformerAbstract
             'name' => $categoryExpense->name,
             'description' => $categoryExpense->description,
             'color' => $categoryExpense->color,
-            'is_edible' => $categoryExpense->is_edible
+            'isEdible' => $categoryExpense->is_edible
         ];
     }
 }

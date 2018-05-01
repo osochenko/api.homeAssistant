@@ -64,10 +64,10 @@ class ExpenseController extends Controller
             $expense = new Expense();
 
             $expense->user_id = auth()->user()->id;
-            $expense->category_id = $receivedExpense['category']['id'];
+            $expense->category_id = $receivedExpense['category'];
             $expense->currency_id = $receivedExpense['currency']['id'];
             $expense->price = $receivedExpense['price'];
-            $expense->is_general = $receivedExpense['is_general'];
+            $expense->is_general = $receivedExpense['isGeneral'];
             $expense->description = $receivedExpense['description'] ?? null;
             $expense->date = Carbon::parse($receivedExpense['date']);
 
@@ -93,8 +93,8 @@ class ExpenseController extends Controller
             $receivedExpense = $request->all();
 
             $expense->currency_id = $receivedExpense['currency']['id'];
-            $expense->category_id = $receivedExpense['category']['id'];
-            $expense->is_general = $receivedExpense['is_general'];
+            $expense->category_id = $receivedExpense['category'];
+            $expense->is_general = $receivedExpense['isGeneral'];
             $expense->price = $receivedExpense['price'];
             $expense->description = $receivedExpense['description'] ?? null;
             $expense->date = Carbon::parse($receivedExpense['date']);
