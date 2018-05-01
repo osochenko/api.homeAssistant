@@ -41,6 +41,7 @@ class ExpenseController extends Controller
 
         $personalExpenses = Expense::whereMonth('date','=', $monthNumber)
             ->where('is_general', '=', false)
+            ->orWhere('is_general', '=', null)
             ->where('user_id', auth()->user()->id)
             ->get();
 
