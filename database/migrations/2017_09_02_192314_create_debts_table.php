@@ -17,6 +17,7 @@ class CreateDebtsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('currency_id')->unsigned();
+            $table->boolean('is_your')->default(false);
             $table->string('name');
             $table->integer('amount');
             $table->text('description')->nullable();

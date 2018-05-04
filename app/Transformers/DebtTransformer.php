@@ -21,6 +21,7 @@ class DebtTransformer extends TransformerAbstract
     {
         return [
             'id' => $debt->id,
+            'isYour' => $debt->is_your,
             'name' => $debt->name,
             'amount' => $debt->amount,
             'currency' => $debt->currency_id,

@@ -44,6 +44,7 @@ class DebtController extends Controller
 
             $debt->user_id = auth()->user()->id;
             $debt->currency_id = $request->input('currency');
+            $debt->is_your = $request->input('isYour', false);
             $debt->name = $request->input('name');
             $debt->amount = $request->input('amount');
 
@@ -71,6 +72,7 @@ class DebtController extends Controller
     {
         try {
             $debt->currency_id = $request->input('currency');
+            $debt->is_your = $request->input('isYour', false);
             $debt->name = $request->input('name');
             $debt->amount = $request->input('amount');
 
