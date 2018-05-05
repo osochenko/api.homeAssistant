@@ -67,7 +67,7 @@ class CategoryExpenseController extends Controller
     {
         try {
             $categoryExpense->name = $request->input('name');
-            $categoryExpense->is_edible = $request->input('is_edible', 0);
+            $categoryExpense->is_edible = $request->input('isEdible', false);
             $categoryExpense->color = $request->input('color');
 
             $categoryExpense->saveOrFail();
