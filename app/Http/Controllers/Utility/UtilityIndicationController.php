@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Utility;
 
+use App\Http\Resources\UtilityIndicationCollectionResource;
 use Exception;
 use Carbon\Carbon;
 use App\Models\UtilityIndication;
@@ -14,21 +15,13 @@ use App\Transformers\UtilityIndicationTransformer;
 class UtilityIndicationController extends Controller
 {
     /**
-     * UtilityIndicationController constructor.
-     */
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
-
-    /**
      * Display a listing of the Utility Indication.
      *
-     * @return JsonResponse
+     * @return UtilityIndicationCollectionResource
      */
-    public function index(): JsonResponse
+    public function index(): UtilityIndicationCollectionResource
     {
-        return response()->json(fractal(auth()->user()->utilityIndications, new UtilityIndicationTransformer()));
+        return new UtilityIndicationCollectionResource(auth()->user()->utilityIndications);
     }
 
     /**
@@ -37,6 +30,7 @@ class UtilityIndicationController extends Controller
      * @param  Request $request
      *
      * @return JsonResponse
+     * @throws \Throwable
      */
     public function store(Request $request): JsonResponse
     {
@@ -70,9 +64,10 @@ class UtilityIndicationController extends Controller
      * Update Utility Indication.
      *
      * @param  UtilityIndication $utilityIndication
-     * @param  Request $request
+     * @param  Request           $request
      *
      * @return JsonResponse
+     * @throws \Throwable
      */
     public function update(UtilityIndication $utilityIndication, Request $request): JsonResponse
     {

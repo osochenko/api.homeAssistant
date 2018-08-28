@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Utility;
 
+use App\Http\Resources\UtilityRateRuleCollectionResource;
 use App\Models\UtilityRateRule;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
@@ -22,14 +23,14 @@ class UtilityRateRuleController extends Controller
     /**
      * Display a listing of the Utility Indication.
      *
-     * @return JsonResponse
+     * @return UtilityRateRuleCollectionResource
      */
-    public function index(): JsonResponse
+    public function index(): UtilityRateRuleCollectionResource
     {
         $rateRules = UtilityRateRule::whereHas('typeUtility', function ($query) {
             $query->where('user_id', '=', auth()->user()->id);
         })->get();
 
-        return response()->json(fractal($rateRules, new UtilityRateRuleTransformer()));
+        return new UtilityRateRuleCollectionResource($rateRules);
     }
 }

@@ -8,26 +8,18 @@ use Exception;
 use App\Models\TypeUtility;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\{Request, JsonResponse};
-use App\Transformers\TypeUtilityTransformer;
+use App\Http\Resources\TypeUtilityCollectionResource;
 
 class TypeUtilityController extends Controller
 {
     /**
-     * TypeUtilityController constructor.
-     */
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
-
-    /**
      * Display a listing of the Type Utility Indication.
      *
-     * @return JsonResponse
+     * @return TypeUtilityCollectionResource
      */
-    public function index(): JsonResponse
+    public function index(): TypeUtilityCollectionResource
     {
-        return response()->json(fractal(auth()->user()->typeUtilities, new TypeUtilityTransformer()));
+        return new TypeUtilityCollectionResource(auth()->user()->typeUtilities);
     }
 
     /**
@@ -36,6 +28,7 @@ class TypeUtilityController extends Controller
      * @param  Request $request
      *
      * @return JsonResponse
+     * @throws \Throwable
      */
     public function store(Request $request): JsonResponse
     {
@@ -60,9 +53,10 @@ class TypeUtilityController extends Controller
      * Update Type Utility Indication.
      *
      * @param  TypeUtility $typeUtility
-     * @param  Request $request
+     * @param  Request     $request
      *
      * @return JsonResponse
+     * @throws \Throwable
      */
     public function update(TypeUtility $typeUtility, Request $request): JsonResponse
     {

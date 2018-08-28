@@ -18,7 +18,7 @@ class DebtCollectionResource extends ResourceCollection
         return $this->collection->map(function (Debt $debt) {
             return [
                 'id' => $debt->id,
-                'isYour' => $debt->is_your,
+                'is_your' => $debt->is_your,
                 'name' => $debt->name,
                 'amount' => $debt->amount,
                 'currency' => $debt->currency_id,

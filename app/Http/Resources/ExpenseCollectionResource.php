@@ -21,7 +21,7 @@ class ExpenseCollectionResource extends ResourceCollection
                 'category' => $expense->category_id,
                 'currency' => $expense->currency_id,
                 'price' => $expense->price,
-                'isGeneral' => $expense->is_general,
+                'is_general' => $expense->is_general,
                 'description' => $expense->description,
                 'date' => $expense->date->toDateString(),
             ];

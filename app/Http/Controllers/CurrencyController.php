@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Currency;
-use App\Http\Resources\CurrencyResource;
+use App\Http\Resources\CurrencyCollectionResource;
 
 class CurrencyController extends Controller
 {
     /**
      * Display a currencies.
-     * @return CurrencyResource
+     * @return CurrencyCollectionResource
      */
-    public function index(): CurrencyResource
+    public function index(): CurrencyCollectionResource
     {
-        return new CurrencyResource(Currency::all());
+        return new CurrencyCollectionResource(Currency::all());
     }
 }
