@@ -2,38 +2,33 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\API\Expense;
+namespace App\Http\Controllers\Expense;
 
 use Carbon\Carbon;
 use Exception;
 use App\Models\Expense;
 use App\Http\Controllers\Controller;
-use App\Transformers\ExpenseTransformer;
 use Illuminate\Http\{Request, JsonResponse};
+use App\Http\Resources\ExpenseCollectionResource;
 
 class ExpenseController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
-
     /**
      * Display a listing of the expense.
      *
-     * @return JsonResponse
+     * @return ExpenseCollectionResource
      */
-    public function index(): JsonResponse
+    public function index(): ExpenseCollectionResource
     {
-        return response()->json(fractal(auth()->user()->expenses, new ExpenseTransformer()));
+        return new ExpenseCollectionResource(auth()->user()->expenses);
     }
 
     /**
      * @param int $monthNumber
      *
-     * @return JsonResponse
+     * @return ExpenseCollectionResource
      */
-    public function getByMonthNumber($monthNumber): JsonResponse
+    public function getByMonthNumber($monthNumber): ExpenseCollectionResource
     {
         $generalExpenses = Expense::whereMonth('date','=', $monthNumber)
             ->where('is_general', '=', true)
@@ -50,7 +45,7 @@ class ExpenseController extends Controller
 
         $expenses = $generalExpenses->merge($personalExpenses);
 
-        return response()->json(fractal($expenses, new ExpenseTransformer()));
+        return new ExpenseCollectionResource($expenses);
     }
 
     /**
@@ -59,6 +54,7 @@ class ExpenseController extends Controller
      * @param  Request $request
      *
      * @return JsonResponse
+     * @throws \Throwable
      */
     public function store(Request $request): JsonResponse
     {
@@ -68,16 +64,16 @@ class ExpenseController extends Controller
             $expense = new Expense();
 
             $expense->user_id = auth()->user()->id;
-            $expense->category_id = $receivedExpense['category'];
-            $expense->currency_id = $receivedExpense['currency'];
+            $expense->category_id = $receivedExpense['category_id'];
+            $expense->currency_id = $receivedExpense['currency_id'];
             $expense->price = $receivedExpense['price'];
-            $expense->is_general = $receivedExpense['isGeneral'];
+            $expense->is_general = $receivedExpense['is_general'];
             $expense->description = $receivedExpense['description'] ?? null;
             $expense->date = Carbon::parse($receivedExpense['date']);
 
             $expense->saveOrFail();
 
-            return response()->json(['id' => $expense->id], 201);
+            return response()->json(['message' => 'Expense created.'], 201);
         } catch (Exception $error) {
             return response()->json(['message' => $error->getMessage()], 500);
         }
@@ -90,22 +86,23 @@ class ExpenseController extends Controller
      * @param  Request $request
      *
      * @return JsonResponse
+     * @throws \Throwable
      */
     public function update(Expense $expense, Request $request): JsonResponse
     {
         try {
             $receivedExpense = $request->all();
 
-            $expense->currency_id = $receivedExpense['currency'];
-            $expense->category_id = $receivedExpense['category'];
-            $expense->is_general = $receivedExpense['isGeneral'];
+            $expense->currency_id = $receivedExpense['currency_id'];
+            $expense->category_id = $receivedExpense['category_id'];
+            $expense->is_general = $receivedExpense['is_general'];
             $expense->price = $receivedExpense['price'];
             $expense->description = $receivedExpense['description'] ?? null;
             $expense->date = Carbon::parse($receivedExpense['date']);
 
             $expense->saveOrFail();
 
-            return response()->json(['date' => Carbon::parse($receivedExpense['date'])->toDateTimeString()]);
+            return response()->json(['message' => 'Expense updated.']);
         } catch (Exception $error) {
             return response()->json(['message' => $error->getMessage()], 500);
         }
@@ -123,7 +120,7 @@ class ExpenseController extends Controller
         try {
             $expense->delete();
 
-            return response()->json([], 204);
+            return response()->json(['message' => 'Delete expense success.'], 204);
         } catch (Exception $error) {
             return response()->json(['message' => $error->getMessage()], 500);
         }

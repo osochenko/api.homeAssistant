@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\API\Utility;
+namespace App\Http\Controllers\Utility;
 
 use Exception;
 use Carbon\Carbon;
@@ -44,11 +44,9 @@ class UtilityIndicationController extends Controller
             $receivedDate = Carbon::parse($request->input('date'));
             $receivedTypeId = $request->input('type');
 
-            // TODO: Добавить возможность добавление по дням для вывода истории ввода показаний
             $utilityIndication = UtilityIndication::where('type_id', $receivedTypeId)
                 ->whereYear('date', $receivedDate->year)
                 ->whereMonth('date', $receivedDate->month)
-                ->whereDay('date', $receivedDate->day)
                 ->first();
 
             if (!$utilityIndication) {

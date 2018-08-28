@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\API\AllocatedMoney;
+namespace App\Http\Controllers\AllocatedMoney;
 
 use Exception;
 use App\Models\AllocatedMoney;

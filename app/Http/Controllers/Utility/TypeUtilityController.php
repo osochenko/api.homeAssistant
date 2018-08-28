@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\API\Utility;
+namespace App\Http\Controllers\Utility;
 
 use Exception;
 use App\Models\TypeUtility;

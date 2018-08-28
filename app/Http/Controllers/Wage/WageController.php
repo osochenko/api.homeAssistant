@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\API\Wage;
+namespace App\Http\Controllers\Wage;
 
 use Exception;
 use App\Models\Wage;

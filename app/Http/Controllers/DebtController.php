@@ -2,32 +2,23 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers;
 
 use Exception;
 use App\Models\Debt;
-use App\Http\Controllers\Controller;
-use App\Transformers\DebtTransformer;
 use Illuminate\Http\{Request, JsonResponse};
+use App\Http\Resources\DebtCollectionResource;
 
 class DebtController extends Controller
 {
     /**
-     * DebtController constructor.
-     */
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
-
-    /**
      * Display a listing of the debt.
      *
-     * @return JsonResponse
+     * @return DebtCollectionResource
      */
-    public function index(): JsonResponse
+    public function index(): DebtCollectionResource
     {
-        return response()->json(fractal(auth()->user()->debts, new DebtTransformer()));
+        return new DebtCollectionResource(Debt::all());
     }
 
     /**
@@ -36,6 +27,7 @@ class DebtController extends Controller
      * @param  Request $request
      *
      * @return JsonResponse
+     * @throws \Throwable
      */
     public function store(Request $request): JsonResponse
     {
@@ -43,46 +35,47 @@ class DebtController extends Controller
             $debt = new Debt();
 
             $debt->user_id = auth()->user()->id;
-            $debt->currency_id = $request->input('currency');
-            $debt->is_your = $request->input('isYour', false);
-            $debt->name = $request->input('name');
-            $debt->amount = $request->input('amount');
+            $debt->currency_id = $request->currency;
+            $debt->is_your = $request->input('is_your', false);
+            $debt->name = $request->name;
+            $debt->amount = $request->amount;
 
-            if ($request->input('description')) {
-                $debt->description = $request->input('description');
+            if ($request->has('description')) {
+                $debt->description = $request->description;
             }
 
             $debt->saveOrFail();
 
-            return response()->json(['id' => $debt->id], 201);
+            return response()->json(['id' => $debt->id, 'message' => 'Debt created.'], 201);
         } catch (Exception $error) {
             return response()->json(['message' => $error->getMessage()], 500);
         }
     }
-    
+
     /**
      * Update debt.
      *
-     * @param  Debt $debt
+     * @param  Debt    $debt
      * @param  Request $request
      *
      * @return JsonResponse
+     * @throws \Throwable
      */
     public function update(Debt $debt, Request $request): JsonResponse
     {
         try {
-            $debt->currency_id = $request->input('currency');
-            $debt->is_your = $request->input('isYour', false);
-            $debt->name = $request->input('name');
-            $debt->amount = $request->input('amount');
+            $debt->currency_id = $request->currency;
+            $debt->is_your = $request->input('is_your', false);
+            $debt->name = $request->name;
+            $debt->amount = $request->amount;
 
-            if ($request->input('description')) {
-                $debt->description = $request->input('description');
+            if ($request->has('description')) {
+                $debt->description = $request->description;
             }
 
             $debt->saveOrFail();
 
-            return response()->json([], 204);
+            return response()->json(['message' => 'Debt updated.'], 204);
         } catch (Exception $error) {
             return response()->json(['message' => $error->getMessage()], 500);
         }
@@ -100,7 +93,7 @@ class DebtController extends Controller
         try {
             $debt->delete();
 
-            return response()->json([], 204);
+            return response()->json(['message' => 'Debt deleted.'], 204);
         } catch (Exception $error) {
             return response()->json(['message' => $error->getMessage()], 500);
         }

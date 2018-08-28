@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class Currency extends Resource
+class CurrencyResource extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -18,7 +18,6 @@ class Currency extends Resource
             'id' => $this->id,
             'code' => $this->code,
             'name' => $this->name,
-            'description' => $this->description,
         ];
     }
 }
