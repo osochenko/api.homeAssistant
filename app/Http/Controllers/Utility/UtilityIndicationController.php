@@ -38,7 +38,7 @@ class UtilityIndicationController extends Controller
             $receivedDate = Carbon::parse($request->input('date'));
             $receivedTypeId = $request->input('type');
 
-            $utilityIndication = UtilityIndication::where('type_id', $receivedTypeId)
+            $utilityIndication = UtilityIndication::query()->where('type_id', $receivedTypeId)
                 ->whereYear('date', $receivedDate->year)
                 ->whereMonth('date', $receivedDate->month)
                 ->first();

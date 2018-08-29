@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Expense;
 
-use Carbon\Carbon;
 use Exception;
+use Carbon\Carbon;
 use App\Models\Expense;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\{Request, JsonResponse};
 use App\Http\Resources\ExpenseCollectionResource;
 
@@ -30,12 +31,12 @@ class ExpenseController extends Controller
      */
     public function getByMonthNumber($monthNumber): ExpenseCollectionResource
     {
-        $generalExpenses = Expense::whereMonth('date','=', $monthNumber)
+        $generalExpenses = Expense::query()->whereMonth('date','=', $monthNumber)
             ->where('is_general', '=', true)
             ->get();
 
-        $personalExpenses = Expense::whereMonth('date','=', $monthNumber)
-            ->where(function ($query) {
+        $personalExpenses = Expense::query()->whereMonth('date','=', $monthNumber)
+            ->where(function (Builder $query) {
                 $query
                     ->where('is_general', '=', false)
                     ->orWhere('is_general', '=', null);

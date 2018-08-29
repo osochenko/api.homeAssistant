@@ -4,22 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Utility;
 
-use App\Http\Resources\UtilityRateRuleCollectionResource;
 use App\Models\UtilityRateRule;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\JsonResponse;
-use App\Transformers\UtilityRateRuleTransformer;
+use Illuminate\Database\Eloquent\Builder;
+use App\Http\Resources\UtilityRateRuleCollectionResource;
 
 class UtilityRateRuleController extends Controller
 {
-    /**
-     * UtilityIndicationController constructor.
-     */
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
-
     /**
      * Display a listing of the Utility Indication.
      *
@@ -27,7 +18,7 @@ class UtilityRateRuleController extends Controller
      */
     public function index(): UtilityRateRuleCollectionResource
     {
-        $rateRules = UtilityRateRule::whereHas('typeUtility', function ($query) {
+        $rateRules = UtilityRateRule::query()->whereHas('typeUtility', function (Builder $query) {
             $query->where('user_id', '=', auth()->user()->id);
         })->get();
 

@@ -18,19 +18,26 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('register', 'AuthController@register');
 });
 
-Route::apiResources([
-    'expenses' => 'Expense\ExpenseController',
-    'category-expenses' => 'Expense\CategoryExpenseController',
-    'allocated-moneys' => 'AllocatedMoney\AllocatedMoneyController',
-    'type-allocated-moneys' => 'AllocatedMoney\TypeAllocatedMoneyController',
-    'type-utilities' => 'Utility\TypeUtilityController',
-    'utility-indications' => 'Utility\UtilityIndicationController',
-    'wages' => 'Wage\WageController',
-    'wage-percentage-distributions' => 'Wage\WagePercentageDistributionController',
-    'debts' => 'DebtController',
-]);
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::group(['prefix' => 'auth'], function () {
+        Route::get('user', 'AuthController@user');
+        Route::post('logout', 'AuthController@logout');
+    });
 
-Route::get('expenses/{monthNumber}', 'Expense\ExpenseController@getByMonthNumber');
+    Route::apiResources([
+        'expenses' => 'Expense\ExpenseController',
+        'category-expenses' => 'Expense\CategoryExpenseController',
+        'allocated-moneys' => 'AllocatedMoney\AllocatedMoneyController',
+        'type-allocated-moneys' => 'AllocatedMoney\TypeAllocatedMoneyController',
+        'type-utilities' => 'Utility\TypeUtilityController',
+        'utility-indications' => 'Utility\UtilityIndicationController',
+        'wages' => 'Wage\WageController',
+        'wage-percentage-distributions' => 'Wage\WagePercentageDistributionController',
+        'debts' => 'DebtController',
+    ]);
 
-Route::resource('utility-rate-rules', 'Utility\UtilityRateRuleController', ['only' => ['index']]);
-Route::resource('currencies', 'CurrencyController', ['only' => ['index']]);
+    Route::get('expenses/{monthNumber}', 'Expense\ExpenseController@getByMonthNumber');
+
+    Route::resource('utility-rate-rules', 'Utility\UtilityRateRuleController', ['only' => ['index']]);
+    Route::resource('currencies', 'CurrencyController', ['only' => ['index']]);
+});

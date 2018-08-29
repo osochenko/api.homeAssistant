@@ -19,7 +19,7 @@ class AllocatedMoneyController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json(fractal(auth()->user()->allocatedMoneys, new AllocatedMoneyTransformer()));
+        return new AllocatedMoneyCollection;
     }
 
     /**
