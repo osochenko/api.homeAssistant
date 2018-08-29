@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\AllocatedMoney;
+use App\AllocatedMoney;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class AllocatedMoneyCollectionResource extends ResourceCollection

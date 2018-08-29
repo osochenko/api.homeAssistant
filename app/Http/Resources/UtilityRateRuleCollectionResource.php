@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\UtilityRateRule;
+use App\UtilityRateRule;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class UtilityRateRuleCollectionResource extends ResourceCollection

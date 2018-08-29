@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Debt;
+use App\Debt;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class DebtCollectionResource extends ResourceCollection

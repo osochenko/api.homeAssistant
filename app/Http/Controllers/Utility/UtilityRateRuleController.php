@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Utility;
 
-use App\Models\UtilityRateRule;
+use App\UtilityRateRule;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Resources\UtilityRateRuleCollectionResource;

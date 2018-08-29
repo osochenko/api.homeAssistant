@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Currency;
+use App\Currency;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class CurrencyCollectionResource extends ResourceCollection

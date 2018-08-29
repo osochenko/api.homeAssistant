@@ -12,7 +12,7 @@
 */
 
 //use DB;
-use App\Models\User;
+use App\User;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,13 +30,13 @@ Route::get('create-user', function () {
     return response()->json(['token' => $token]);
 });
 Route::get('test', function () {
-    $user = \App\Models\User::find(1);
+    $user = \App\User::find(1);
     dd($user->debts);
-    $expenseTypeIDs = \App\Models\TypeExpense::where('slug', '!=', 'personal')
+    $expenseTypeIDs = \App\TypeExpense::where('slug', '!=', 'personal')
         ->pluck('id')
         ->toArray();
 
-    $expensesQuery = \App\Models\Expense::query()
+    $expensesQuery = \App\Expense::query()
         ->whereMonth('date','=', 4);
 
     $expensesWithoutTypePersonal = $expensesQuery
@@ -48,7 +48,7 @@ Route::get('test', function () {
 //    $user = User::find(1);
 //    dd($user->utilityIndications);
 
-    $rateRules = \App\Models\UtilityRateRule::whereHas('typeUtility', function ($query) {
+    $rateRules = \App\UtilityRateRule::whereHas('typeUtility', function ($query) {
         $query->where('user_id', '=', 1);
     })->get();
     dd($rateRules);

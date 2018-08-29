@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Wage;
 
 use Exception;
-use App\Models\Wage;
+use App\Wage;
 use App\Http\Controllers\Controller;
 use App\Transformers\WageTransformer;
 use Illuminate\Http\{Request, JsonResponse};

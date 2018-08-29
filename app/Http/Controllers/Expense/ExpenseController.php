@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Expense;
 
 use Exception;
 use Carbon\Carbon;
-use App\Models\Expense;
+use App\Expense;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\{Request, JsonResponse};

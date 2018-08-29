@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Expense;
 
 use Exception;
-use App\Models\CategoryExpense;
+use App\CategoryExpense;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\{Request, JsonResponse};
 use App\Http\Resources\CategoryExpenseCollectionResource;

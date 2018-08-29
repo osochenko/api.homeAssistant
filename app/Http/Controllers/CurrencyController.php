@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Models\Currency;
+use App\Currency;
 use App\Http\Resources\CurrencyCollectionResource;
 
 class CurrencyController extends Controller

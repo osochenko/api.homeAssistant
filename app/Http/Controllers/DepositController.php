@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use Exception;
-use App\Models\Deposit;
+use App\Deposit;
 use App\Http\Controllers\Controller;
 use App\Transformers\DepositTransformer;
 use Illuminate\Http\{Request, JsonResponse};

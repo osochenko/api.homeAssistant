@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\WagePercentageDistribution;
+use App\WagePercentageDistribution;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class WagePercentageDistributionCollectionResource extends ResourceCollection

@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\UtilityIndication;
+use App\UtilityIndication;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class UtilityIndicationCollectionResource extends ResourceCollection

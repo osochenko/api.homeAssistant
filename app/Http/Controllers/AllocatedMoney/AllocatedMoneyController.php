@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\AllocatedMoney;
 
 use Exception;
-use App\Models\AllocatedMoney;
+use App\AllocatedMoney;
 use App\Http\Controllers\Controller;
 use App\Transformers\AllocatedMoneyTransformer;
 use Illuminate\Http\{Request, JsonResponse};

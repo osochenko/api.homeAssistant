@@ -11,14 +11,14 @@
 |
 */
 
-$factory->define(App\Models\Currency::class, function () {
+$factory->define(App\Currency::class, function () {
     return [
         'name' => 'Dollar',
         'code' => 'USD',
     ];
 });
 
-$factory->define(App\Models\Currency::class, function () {
+$factory->define(App\Currency::class, function () {
     return [
         'name' => 'Ukrainian Hryvnia',
         'code' => 'UAH',

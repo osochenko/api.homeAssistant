@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\TypeUtility;
+use App\TypeUtility;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class TypeUtilityCollectionResource extends ResourceCollection

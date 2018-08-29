@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Deposit;
+use App\Deposit;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class DepositCollectionResource extends ResourceCollection

@@ -7,10 +7,9 @@ namespace App\Http\Controllers\Utility;
 use App\Http\Resources\UtilityIndicationCollectionResource;
 use Exception;
 use Carbon\Carbon;
-use App\Models\UtilityIndication;
+use App\UtilityIndication;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\{Request, JsonResponse};
-use App\Transformers\UtilityIndicationTransformer;
 
 class UtilityIndicationController extends Controller
 {

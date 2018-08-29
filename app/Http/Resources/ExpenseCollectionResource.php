@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Expense;
+use App\Expense;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class ExpenseCollectionResource extends ResourceCollection

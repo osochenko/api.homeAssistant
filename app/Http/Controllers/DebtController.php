@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use Exception;
-use App\Models\Debt;
+use App\Debt;
 use Illuminate\Http\{Request, JsonResponse};
 use App\Http\Resources\DebtCollectionResource;
 

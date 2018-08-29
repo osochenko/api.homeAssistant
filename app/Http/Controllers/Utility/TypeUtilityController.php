@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Utility;
 
 use Exception;
-use App\Models\TypeUtility;
+use App\TypeUtility;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\{Request, JsonResponse};
 use App\Http\Resources\TypeUtilityCollectionResource;
