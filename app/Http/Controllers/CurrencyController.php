@@ -5,16 +5,17 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Currency;
-use App\Http\Resources\CurrencyCollectionResource;
+use App\Http\Resources\CurrencyResource;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class CurrencyController extends Controller
 {
     /**
      * Display a currencies.
-     * @return CurrencyCollectionResource
+     * @return AnonymousResourceCollection
      */
-    public function index(): CurrencyCollectionResource
+    public function index(): AnonymousResourceCollection
     {
-        return new CurrencyCollectionResource(Currency::all());
+        return CurrencyResource::collection(Currency::all());
     }
 }

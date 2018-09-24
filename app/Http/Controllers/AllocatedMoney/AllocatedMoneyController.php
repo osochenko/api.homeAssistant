@@ -7,19 +7,21 @@ namespace App\Http\Controllers\AllocatedMoney;
 use Exception;
 use App\AllocatedMoney;
 use App\Http\Controllers\Controller;
-use App\Transformers\AllocatedMoneyTransformer;
-use Illuminate\Http\{Request, JsonResponse};
+use App\Http\Resources\AllocatedMoneyResource;
+use Illuminate\Http\{
+    Request, JsonResponse
+};
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class AllocatedMoneyController extends Controller
 {
     /**
      * Display a listing of the allocatedMoney.
-     *
-     * @return JsonResponse
+     * @return AnonymousResourceCollection
      */
-    public function index(): JsonResponse
+    public function index(): AnonymousResourceCollection
     {
-        return new AllocatedMoneyCollection;
+        return AllocatedMoneyResource::collection(AllocatedMoney::all());
     }
 
     /**

@@ -9,27 +9,28 @@ use Carbon\Carbon;
 use App\Expense;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\{Request, JsonResponse};
-use App\Http\Resources\ExpenseCollectionResource;
+use Illuminate\Http\{
+    Request, JsonResponse, Resources\Json\AnonymousResourceCollection
+};
+use App\Http\Resources\ExpenseResource;
 
 class ExpenseController extends Controller
 {
     /**
      * Display a listing of the expense.
-     *
-     * @return ExpenseCollectionResource
+     * @return AnonymousResourceCollection
      */
-    public function index(): ExpenseCollectionResource
+    public function index(): AnonymousResourceCollection
     {
-        return new ExpenseCollectionResource(auth()->user()->expenses);
+        return ExpenseResource::collection(auth()->user()->expenses);
     }
 
     /**
      * @param int $monthNumber
      *
-     * @return ExpenseCollectionResource
+     * @return AnonymousResourceCollection
      */
-    public function getByMonthNumber($monthNumber): ExpenseCollectionResource
+    public function getByMonthNumber($monthNumber): AnonymousResourceCollection
     {
         $generalExpenses = Expense::query()->whereMonth('date','=', $monthNumber)
             ->where('is_general', '=', true)
@@ -46,7 +47,7 @@ class ExpenseController extends Controller
 
         $expenses = $generalExpenses->merge($personalExpenses);
 
-        return new ExpenseCollectionResource($expenses);
+        return ExpenseResource::collection($expenses);
     }
 
     /**

@@ -7,19 +7,20 @@ namespace App\Http\Controllers\Expense;
 use Exception;
 use App\CategoryExpense;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\{Request, JsonResponse};
-use App\Http\Resources\CategoryExpenseCollectionResource;
+use Illuminate\Http\{
+    Request, JsonResponse, Resources\Json\AnonymousResourceCollection
+};
+use App\Http\Resources\CategoryExpenseResource;
 
 class CategoryExpenseController extends Controller
 {
     /**
      * Display a listing of the categoryExpense.
-     *
-     * @return CategoryExpenseCollectionResource
+     * @return AnonymousResourceCollection
      */
-    public function index(): CategoryExpenseCollectionResource
+    public function index(): AnonymousResourceCollection
     {
-        return new CategoryExpenseCollectionResource(CategoryExpense::all());
+        return CategoryExpenseResource::collection(CategoryExpense::all());
     }
 
     /**

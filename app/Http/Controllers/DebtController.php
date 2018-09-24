@@ -6,19 +6,20 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Debt;
-use Illuminate\Http\{Request, JsonResponse};
-use App\Http\Resources\DebtCollectionResource;
+use Illuminate\Http\{
+    Request, JsonResponse, Resources\Json\AnonymousResourceCollection
+};
+use App\Http\Resources\DebtResource;
 
 class DebtController extends Controller
 {
     /**
      * Display a listing of the debt.
-     *
-     * @return DebtCollectionResource
+     * @return AnonymousResourceCollection
      */
-    public function index(): DebtCollectionResource
+    public function index(): AnonymousResourceCollection
     {
-        return new DebtCollectionResource(Debt::all());
+        return DebtResource::collection(Debt::all());
     }
 
     /**

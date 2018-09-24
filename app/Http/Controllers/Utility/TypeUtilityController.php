@@ -8,18 +8,17 @@ use Exception;
 use App\TypeUtility;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\{Request, JsonResponse};
-use App\Http\Resources\TypeUtilityCollectionResource;
+use App\Http\Resources\TypeUtilityResource;
 
 class TypeUtilityController extends Controller
 {
     /**
      * Display a listing of the Type Utility Indication.
-     *
-     * @return TypeUtilityCollectionResource
+     * @return TypeUtilityResource
      */
-    public function index(): TypeUtilityCollectionResource
+    public function index(): TypeUtilityResource
     {
-        return new TypeUtilityCollectionResource(auth()->user()->typeUtilities);
+        return new TypeUtilityResource(auth()->user()->typeUtilities);
     }
 
     /**

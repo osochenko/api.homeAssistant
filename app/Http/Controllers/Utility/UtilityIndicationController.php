@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Utility;
 
-use App\Http\Resources\UtilityIndicationCollectionResource;
+use App\Http\Resources\UtilityIndicationResource;
 use Exception;
 use Carbon\Carbon;
 use App\UtilityIndication;
@@ -15,12 +15,11 @@ class UtilityIndicationController extends Controller
 {
     /**
      * Display a listing of the Utility Indication.
-     *
-     * @return UtilityIndicationCollectionResource
+     * @return UtilityIndicationResource
      */
-    public function index(): UtilityIndicationCollectionResource
+    public function index(): UtilityIndicationResource
     {
-        return new UtilityIndicationCollectionResource(auth()->user()->utilityIndications);
+        return new UtilityIndicationResource(auth()->user()->utilityIndications);
     }
 
     /**
