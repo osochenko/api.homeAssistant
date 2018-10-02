@@ -35,7 +35,9 @@ class ExpenseController extends Controller
      */
     public function getByMonthNumber($monthNumber): JsonResponse
     {
-        $generalExpenses = Expense::whereMonth('date','=', $monthNumber)
+        $generalExpenses = Expense::query()
+            ->whereMonth('date','=', $monthNumber)
+            ->whereYear('date','=', 2018)
             ->where('is_general', '=', true)
             ->get();
 
