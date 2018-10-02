@@ -16,14 +16,14 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('login', 'AuthController@login');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('register', 'AuthController@register');
-});
 
-Route::group(['middleware' => 'auth:api'], function () {
-    Route::group(['prefix' => 'auth'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
         Route::get('user', 'AuthController@user');
         Route::post('logout', 'AuthController@logout');
     });
+});
 
+Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResources([
         'expenses' => 'Expense\ExpenseController',
         'category-expenses' => 'Expense\CategoryExpenseController',
@@ -37,7 +37,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     ]);
 
     Route::get('expenses/month/{monthNumber}', 'Expense\ExpenseController@getByMonthNumber');
-
-    Route::resource('utility-rate-rules', 'Utility\UtilityRateRuleController', ['only' => ['index']]);
-    Route::resource('currencies', 'CurrencyController', ['only' => ['index']]);
+    Route::get('currencies', 'CurrencyController@index');
+    Route::get('utility-rate-rules', 'Utility\UtilityRateRuleController@index');
 });
