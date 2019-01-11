@@ -18,47 +18,24 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('register', 'AuthController@register');
 });
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'auth'], function () {
+    Route::get('user', 'AuthController@user');
+    Route::post('logout', 'AuthController@logout');
 });
 
-Route::resource('expense', 'API\Expense\ExpenseController', [
-    'only' => ['index', 'store', 'update', 'destroy']
-]);
-Route::get('expense/{monthNumber}', 'API\Expense\ExpenseController@getByMonthNumber');
-
-Route::resource('category-expense', 'API\Expense\CategoryExpenseController', [
-    'only' => ['index', 'store', 'update', 'destroy']
-]);
-
-Route::resource('allocated-money', 'API\AllocatedMoney\AllocatedMoneyController', [
-    'only' => ['index', 'store', 'update', 'destroy']
-]);
-Route::resource('type-allocated-money', 'API\AllocatedMoney\TypeAllocatedMoneyController', [
-    'only' => ['index', 'store', 'update', 'destroy']
+Route::apiResources([
+    'expense' => 'Expense\ExpenseController',
+    'category-expense' => 'Expense\CategoryExpenseController',
+    'allocated-moneys' => 'AllocatedMoney\AllocatedMoneyController',
+    'type-allocated-moneys' => 'AllocatedMoney\TypeAllocatedMoneyController',
+    'type-utility' => 'Utility\TypeUtilityController',
+    'utility-indications' => 'Utility\UtilityIndicationController',
+    'wages' => 'Wage\WageController',
+    'wage-percentage-distributions' => 'Wage\WagePercentageDistributionController',
+    'debts' => 'DebtController',
 ]);
 
-Route::resource('type-utility', 'API\Utility\TypeUtilityController', [
-    'only' => ['index', 'store', 'update', 'destroy']
-]);
-Route::resource('utility-indication', 'API\Utility\UtilityIndicationController', [
-    'only' => ['index', 'store', 'update', 'destroy']
-]);
-Route::resource('utility-rate-rule', 'API\Utility\UtilityRateRuleController', [
-    'only' => ['index']
-]);
+Route::get('expenses/month/{monthNumber}', 'Expense\ExpenseController@getByMonthNumber');
 
-Route::resource('wage', 'API\Wage\WageController', [
-    'only' => ['index', 'store', 'update', 'destroy']
-]);
-Route::resource('wage-percentage-distribution', 'API\Wage\WagePercentageDistributionController', [
-    'only' => ['index', 'store', 'update', 'destroy']
-]);
-
-Route::resource('currency', 'API\CurrencyController', [
-    'only' => ['index']
-]);
-
-Route::resource('debt', 'API\DebtController', [
-    'only' => ['index', 'store', 'update', 'destroy']
-]);
+Route::resource('utility-rate-rule', 'Utility\UtilityRateRuleController', ['only' => ['index']]);
+Route::resource('currency', 'CurrencyController', ['only' => ['index']]);
