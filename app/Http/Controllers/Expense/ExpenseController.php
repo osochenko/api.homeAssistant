@@ -31,11 +31,15 @@ class ExpenseController extends Controller
      */
     public function getByMonthNumber($monthNumber): ExpenseCollectionResource
     {
-        $generalExpenses = Expense::query()->whereMonth('date','=', $monthNumber)
+        $generalExpenses = Expense::query()
+            ->whereYear('date','=', 2019)
+            ->whereMonth('date','=', $monthNumber)
             ->where('is_general', '=', true)
             ->get();
 
-        $personalExpenses = Expense::query()->whereMonth('date','=', $monthNumber)
+        $personalExpenses = Expense::query()
+            ->whereYear('date','=', 2019)
+            ->whereMonth('date','=', $monthNumber)
             ->where(function (Builder $query) {
                 $query
                     ->where('is_general', '=', false)
