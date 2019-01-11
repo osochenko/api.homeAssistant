@@ -47,9 +47,7 @@ class ExpenseController extends Controller
             })
             ->where('user_id', auth()->user()->id)
             ->get();
-
         $expenses = $generalExpenses->merge($personalExpenses);
-
         return new ExpenseCollectionResource($expenses);
     }
 
