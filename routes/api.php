@@ -36,7 +36,7 @@ Route::group(['middleware' => 'auth:api'], function () {
         'debts' => 'DebtController',
     ]);
 
-    Route::get('expenses/month/{monthNumber}', 'Expense\ExpenseController@getByMonthNumber');
+    Route::get('expenses/{year}/{month}', 'Expense\ExpenseController@getByMonthAndYear');
     Route::get('currencies', 'CurrencyController@index');
     Route::get('utility-rate-rules', 'Utility\UtilityRateRuleController@index');
 });

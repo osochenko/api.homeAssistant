@@ -26,27 +26,18 @@ class ExpenseController extends Controller
     }
 
     /**
-     * @param int $monthNumber
+     * @param int $month
+     * @param int $year
      *
      * @return AnonymousResourceCollection
      */
-    public function getByMonthNumber($monthNumber): AnonymousResourceCollection
+    public function getByMonthAndYear($year, $month): AnonymousResourceCollection
     {
-        $generalExpenses = Expense::query()->whereMonth('date','=', $monthNumber)
-            ->where('is_general', '=', true)
+        $expenses = Expense::query()
+            ->whereYear('date','=', $year)
+            ->whereMonth('date','=', $month)
+//            ->where('user_id', auth()->user()->id)
             ->get();
-
-        $personalExpenses = Expense::query()->whereMonth('date','=', $monthNumber)
-            ->where(function (Builder $query) {
-                $query
-                    ->where('is_general', '=', false)
-                    ->orWhere('is_general', '=', null);
-            })
-            ->where('user_id', auth()->user()->id)
-            ->get();
-
-        $expenses = $generalExpenses->merge($personalExpenses);
-
         return ExpenseResource::collection($expenses);
     }
 

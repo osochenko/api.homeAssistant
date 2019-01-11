@@ -17,6 +17,7 @@ class CreateExpensesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('category_id')->unsigned();
+            $table->integer('event_id')->unsigned();
             $table->integer('currency_id')->unsigned();
             $table->boolean('is_general')->default(false);
             $table->integer('price');

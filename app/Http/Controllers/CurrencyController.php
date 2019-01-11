@@ -16,6 +16,7 @@ class CurrencyController extends Controller
      */
     public function index(): AnonymousResourceCollection
     {
+        sleep(2);
         return CurrencyResource::collection(Currency::all());
     }
 }
