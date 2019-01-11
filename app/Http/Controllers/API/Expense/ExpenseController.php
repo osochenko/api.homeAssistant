@@ -37,13 +37,13 @@ class ExpenseController extends Controller
     {
         $generalExpenses = Expense::query()
             ->whereMonth('date','=', $monthNumber)
-            ->whereYear('date','=', 2018)
+            ->whereYear('date','=', 2019)
             ->where('is_general', '=', true)
             ->get();
 
         $personalExpenses = Expense::query()
             ->whereMonth('date','=', $monthNumber)
-            ->whereYear('date','=', 2018)
+            ->whereYear('date','=', 2019)
             ->where(function ($query) {
                 $query
                     ->where('is_general', '=', false)
