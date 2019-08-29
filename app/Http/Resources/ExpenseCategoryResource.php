@@ -4,20 +4,21 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class WageResource extends JsonResource
+class ExpenseCategoryResource extends JsonResource
 {
     /**
-     * Transform the resource collection into an array.
+     * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function toArray($request)
     {
         return [
             'id' => $this->id,
-            'code' => $this->code,
             'name' => $this->name,
+            'color' => $this->color,
+            'is_edible' => $this->is_edible,
         ];
     }
 }

@@ -7,7 +7,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class CategoryExpense extends Model
+class ExpenseCategory extends Model
 {
     public $timestamps = false;
 

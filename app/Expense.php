@@ -17,16 +17,6 @@ class Expense extends Model
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(CategoryExpense::class);
-    }
-
-    public function type(): BelongsTo
-    {
-        return $this->belongsTo(TypeExpense::class);
-    }
-
-    public function currency(): BelongsTo
-    {
-        return $this->belongsTo(Currency::class);
+        return $this->belongsTo(ExpenseCategory::class);
     }
 }

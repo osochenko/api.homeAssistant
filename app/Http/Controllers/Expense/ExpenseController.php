@@ -7,8 +7,8 @@ namespace App\Http\Controllers\Expense;
 use Exception;
 use Carbon\Carbon;
 use App\Expense;
+use App\ExpenseProduct;
 use App\Http\Controllers\Controller;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\{
     Request, JsonResponse, Resources\Json\AnonymousResourceCollection
 };
@@ -16,6 +16,10 @@ use App\Http\Resources\ExpenseResource;
 
 class ExpenseController extends Controller
 {
+    public function __construct()
+    {
+        sleep(2);
+    }
     /**
      * Display a listing of the expense.
      * @return AnonymousResourceCollection
@@ -52,17 +56,28 @@ class ExpenseController extends Controller
     public function store(Request $request): JsonResponse
     {
         try {
-            $receivedExpense = $request->all();
+            foreach ($request->products as $product) {
+                $expenseProduct = ExpenseProduct::query()
+                    ->where('name', $product)
+                    ->first();
+                if (!$expenseProduct) {
+                    ExpenseProduct::create([
+                        'name' => $product,
+                        'category_id' => $request->category_id,
+                    ]);
+                }
+            }
 
             $expense = new Expense();
 
             $expense->user_id = auth()->user()->id;
-            $expense->category_id = $receivedExpense['category_id'];
-            $expense->currency_id = $receivedExpense['currency_id'];
-            $expense->price = $receivedExpense['price'];
-            $expense->is_general = $receivedExpense['is_general'];
-            $expense->description = $receivedExpense['description'] ?? null;
-            $expense->date = Carbon::parse($receivedExpense['date']);
+            $expense->category_id = $request->category_id;
+            $expense->event_id = $request->event_id;
+            $expense->currency_id = $request->currency_id;
+            $expense->price = $request->price;
+            $expense->is_general = $request->is_general;
+            $expense->products = $request->products;
+            $expense->date = Carbon::parse($request->date);
 
             $expense->saveOrFail();
 
@@ -84,14 +99,25 @@ class ExpenseController extends Controller
     public function update(Expense $expense, Request $request): JsonResponse
     {
         try {
-            $receivedExpense = $request->all();
+            foreach ($request->products as $product) {
+                $expenseProduct = ExpenseProduct::query()
+                    ->where('name', $product)
+                    ->first();
+                if (!$expenseProduct) {
+                    ExpenseProduct::create([
+                        'name' => $product,
+                        'category_id' => $request->category_id,
+                    ]);
+                }
+            }
 
-            $expense->currency_id = $receivedExpense['currency_id'];
-            $expense->category_id = $receivedExpense['category_id'];
-            $expense->is_general = $receivedExpense['is_general'];
-            $expense->price = $receivedExpense['price'];
-            $expense->description = $receivedExpense['description'] ?? null;
-            $expense->date = Carbon::parse($receivedExpense['date']);
+            $expense->category_id = $request->category_id;
+            $expense->event_id = $request->event_id;
+            $expense->currency_id = $request->currency_id;
+            $expense->price = $request->price;
+            $expense->is_general = $request->is_general;
+            $expense->products = $request->products;
+            $expense->date = Carbon::parse($request->date);
 
             $expense->saveOrFail();
 

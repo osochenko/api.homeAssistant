@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWagesTable extends Migration
+class CreateEventExpenseTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,23 +13,19 @@ class CreateWagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('wages', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->integer('currency_id')->unsigned();
-            $table->integer('amount');
-            $table->timestamps();
+        Schema::create('event_expense', function (Blueprint $table) {
+            $table->integer('expense_id')->unsigned();
+            $table->integer('event_id')->unsigned();
 
             $table
-                ->foreign('user_id')
+                ->foreign('expense_id')
                 ->references('id')
-                ->on('users')
+                ->on('expenses')
                 ->onDelete('cascade');
-
             $table
-                ->foreign('currency_id')
+                ->foreign('event_id')
                 ->references('id')
-                ->on('currencies')
+                ->on('events')
                 ->onDelete('cascade');
         });
     }
@@ -41,6 +37,6 @@ class CreateWagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('wages');
+        Schema::dropIfExists('event_expense');
     }
 }

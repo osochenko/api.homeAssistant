@@ -26,17 +26,14 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResources([
         'expenses' => 'Expense\ExpenseController',
-        'category-expenses' => 'Expense\CategoryExpenseController',
-        'allocated-moneys' => 'AllocatedMoney\AllocatedMoneyController',
-        'type-allocated-moneys' => 'AllocatedMoney\TypeAllocatedMoneyController',
+        'expense-categories' => 'Expense\ExpenseCategoryController',
+        'expense-events' => 'Expense\ExpenseEventController',
+        'expense-products' => 'Expense\ExpenseProductController',
         'type-utilities' => 'Utility\TypeUtilityController',
         'utility-indications' => 'Utility\UtilityIndicationController',
-        'wages' => 'Wage\WageController',
-        'wage-percentage-distributions' => 'Wage\WagePercentageDistributionController',
         'debts' => 'DebtController',
     ]);
 
     Route::get('expenses/{year}/{month}', 'Expense\ExpenseController@getByMonthAndYear');
-    Route::get('currencies', 'CurrencyController@index');
     Route::get('utility-rate-rules', 'Utility\UtilityRateRuleController@index');
 });

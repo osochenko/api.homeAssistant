@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWagePercentageDistributionsTable extends Migration
+class CreateEventsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,15 @@ class CreateWagePercentageDistributionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('wage_percentage_distributions', function (Blueprint $table) {
+        Schema::create('events', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('wage_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->string('name');
-            $table->integer('percent');
-            $table->text('description')->nullable();
 
             $table
-                ->foreign('wage_id')
+                ->foreign('user_id')
                 ->references('id')
-                ->on('wages')
+                ->on('users')
                 ->onDelete('cascade');
         });
     }
@@ -35,6 +33,6 @@ class CreateWagePercentageDistributionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('wage_percentage_distributions');
+        Schema::dropIfExists('events');
     }
 }

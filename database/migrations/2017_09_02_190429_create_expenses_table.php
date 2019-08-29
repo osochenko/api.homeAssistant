@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAllocatedMoneysTable extends Migration
+class CreateExpensesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateAllocatedMoneysTable extends Migration
      */
     public function up()
     {
-        Schema::create('allocated_moneys', function (Blueprint $table) {
+        Schema::create('expenses', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->integer('type_id')->unsigned();
-            $table->integer('currency_id')->unsigned();
-            $table->integer('amount');
+            $table->integer('category_id')->unsigned();
+            $table->integer('price')->unsigned();
             $table->text('description')->nullable();
-            $table->timestamps();
+            $table->date('date');
 
             $table
                 ->foreign('user_id')
@@ -29,15 +28,9 @@ class CreateAllocatedMoneysTable extends Migration
                 ->onDelete('cascade');
 
             $table
-                ->foreign('type_id')
+                ->foreign('category_id')
                 ->references('id')
-                ->on('type_allocated_moneys')
-                ->onDelete('cascade');
-
-            $table
-                ->foreign('currency_id')
-                ->references('id')
-                ->on('currencies')
+                ->on('expense_categories')
                 ->onDelete('cascade');
         });
     }
@@ -49,6 +42,6 @@ class CreateAllocatedMoneysTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('allocated_moneys');
+        Schema::dropIfExists('expenses');
     }
 }
